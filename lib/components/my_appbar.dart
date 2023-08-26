@@ -20,15 +20,14 @@ AppBar myAppBar(BuildContext context) {
       style: TextStyle(
         fontWeight: FontWeight.bold,
         fontSize: 27,
-        color:
-            isDarkModeNotifier.value == false ? Colors.grey[850] : Colors.white,
+        color: isDarkModeNotifier.value == false ? Colors.grey[850] : Colors.white,
       ),
     ),
     centerTitle: true,
     actions: [
       PopupMenuButton<int>(
         onSelected: (item) => onSelected(context, item),
-        icon: Padding(padding: EdgeInsets.only(right: 20), child: menuIcon),
+        icon: const Padding(padding: EdgeInsets.only(right: 20), child: menuIcon),
         itemBuilder: (context) => [
           const PopupMenuItem<int>(
             value: 0,
