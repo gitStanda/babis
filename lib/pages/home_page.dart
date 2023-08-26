@@ -1,4 +1,3 @@
-import 'package:another_flushbar/flushbar.dart';
 import 'package:babisappka/components/my_appbar.dart';
 import 'package:babisappka/core/notifiers.dart';
 
@@ -19,15 +18,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  // flushbar je ten text nad selectwidget
-  Flushbar flush = Flushbar(
-    messageText: const Center(child: Text("[Zvolte možnost]")),
-    isDismissible: false,
-    backgroundColor: Colors.black.withOpacity(0.1),
-    margin: const EdgeInsets.only(bottom: 140),
-    animationDuration: const Duration(microseconds: 1),
-  );
-
   Widget getResultWidget() {
     if (scanResult.value == '') {
       if (selectedOption.value == 'Scan') {
@@ -43,15 +33,6 @@ class _HomePageState extends State<HomePage> {
   }
 
   @override
-  void initState() {
-    super.initState();
-
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      flush.show(context);
-    });
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.secondaryContainer, // barva aplikace
@@ -60,15 +41,12 @@ class _HomePageState extends State<HomePage> {
       body: SafeArea(
         child: Column(
           children: [
-            // ze zacatku jsem pouzival titlewidget, ale byl moc velky a nesedl tam
-            // const TitleWidget(),
             Expanded(
               child: ValueListenableBuilder(
                 valueListenable: scanResult,
                 builder: (context, scanResult, _) => ValueListenableBuilder(
                   valueListenable: selectedOption,
                   builder: (context, selectedOption, child) {
-                    flush.dismiss();
                     return Padding(
                       padding: const EdgeInsets.fromLTRB(8, 4, 8, 0),
                       child: getResultWidget(),

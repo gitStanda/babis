@@ -21,10 +21,18 @@ class SelectWidget extends StatelessWidget {
                   child: InkWell(
                     borderRadius: BorderRadius.circular(16),
                     onTap: () {
-                      scanResult.value = '';
-                      if (selectedOption.value == '' || selectedOption.value == 'Manual') {
+                      // neni vybrany scan
+                      if ((selectedOption.value == '' || selectedOption.value == 'Manual')) {
                         selectedOption.value = 'Scan';
-                      } else {
+                      }
+                      // je vybrany Manual a je vysledek -> vrati se do ManualWidget
+                      else if ((selectedOption.value == 'Scan' && scanResult.value.isNotEmpty)) {
+                        scanResult.value = '';
+                        selectedOption.value = 'Scan';
+                      }
+                      // je vybrany scan a neni vysledek -> vrati se do menu
+                      else {
+                        scanResult.value = '';
                         selectedOption.value = '';
                       }
                     },
@@ -40,10 +48,18 @@ class SelectWidget extends StatelessWidget {
                   child: InkWell(
                     borderRadius: BorderRadius.circular(16),
                     onTap: () {
-                      scanResult.value = '';
-                      if (selectedOption.value == '' || selectedOption.value == 'Scan') {
+                      // neni vybrany Manual
+                      if ((selectedOption.value == '' || selectedOption.value == 'Scan')) {
                         selectedOption.value = 'Manual';
-                      } else {
+                      }
+                      // je vybrany Manual a je vysledek -> vrati se do ManualWidget
+                      else if ((selectedOption.value == 'Manual' && scanResult.value.isNotEmpty)) {
+                        scanResult.value = '';
+                        selectedOption.value = 'Manual';
+                      }
+                      // je vybrany Manual a neni vysledek -> vrati se do menu
+                      else {
+                        scanResult.value = '';
                         selectedOption.value = '';
                       }
                     },
