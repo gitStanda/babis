@@ -18,7 +18,6 @@ class ResultWidget extends StatelessWidget {
         bool scannedYet = (result.isEmpty || result.contains("-1")) ? false : true;
 
         Future<ResultData?> resultFuture;
-        // selectedOption.value = ''; // aby po tom co ziska vysledek se nemuselo na selectwidget klikat 2x
         // pokud ano, ziska Result Data
         if (scannedYet) {
           resultFuture = getResultData(result);
@@ -34,7 +33,6 @@ class ResultWidget extends StatelessWidget {
               return const CircularProgressIndicator();
             } else {
               ResultData? vyslednaFirma = snapshot.data;
-
               return resultWidgetDesign(scannedYet, result, vyslednaFirma);
             }
           },
@@ -51,12 +49,6 @@ class ResultWidget extends StatelessWidget {
           children: [
             // Pokud se ještě neskenovalo, vrátí ikonku skenneru
             if (!scannedYet) ...[
-              // const Text(
-              //   "[Zvolte možnost]",
-              //   style: TextStyle(
-              //     fontWeight: FontWeight.bold,
-              //   ),
-              // ),
               Padding(
                 padding: const EdgeInsets.only(bottom: 40),
                 child: noResultIcon,
