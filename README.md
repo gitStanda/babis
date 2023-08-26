@@ -1,9 +1,9 @@
 # Babišovo?
 ---
 
-This is my first app ever. It scans barcodes of products and warns the user if the manufacturer is part of Agrofert Holding. \
-Works even offline. \
-Heavily inspired by https://github.com/babisovka510/Babisovka/ \
+This is my first app ever. It scans barcodes of products and warns the user if the manufacturer is part of Agrofert Holding.  
+Works even offline.  
+Heavily inspired by https://github.com/babisovka510/Babisovka/  
 Comments, strings & data stuff (json, models, parsed data, result class, ...) are in Czech. 
 
 # Problems I am aware of
