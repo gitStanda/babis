@@ -18,11 +18,10 @@ class ResultWidget extends StatelessWidget {
         bool scannedYet = (result.isEmpty || result.contains("-1")) ? false : true;
 
         Future<ResultData?> resultFuture;
-
+        // selectedOption.value = ''; // aby po tom co ziska vysledek se nemuselo na selectwidget klikat 2x
         // pokud ano, ziska Result Data
         if (scannedYet) {
           resultFuture = getResultData(result);
-          selectedOption.value = ''; // aby po tom co ziska vysledek se nemuselo na selectwidget klikat 2x
         } else {
           resultFuture = Future.value(null);
         } // Placeholder future
