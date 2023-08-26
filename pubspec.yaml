@@ -41,7 +41,6 @@ dependencies:
   path_provider: ^2.1.0
   fluttertoast: ^8.2.2
   shared_preferences: ^2.2.0
-  another_flushbar: ^1.12.30
 
   # ai_barcode_scanner: ^0.0.7 - i've made some changes to this one.
   
