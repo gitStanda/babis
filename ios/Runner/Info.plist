@@ -2,8 +2,12 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>Potřebuju povolení otevřít Facebook URL, abych mohl skupinu ukázat.</string>
+	</array>
 	<key>NSCameraUsageDescription</key>
-	<string>Potřebuju přístup ke kameře, abych mohl skenovat čárové kódy (žádné data NIKDY neukládám)</string>
+	<string>Potřebuju přístup ke kameře, abych mohl skenovat čárové kódy (žádné data o uživateli NIKDY neukládám)</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>

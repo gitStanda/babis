@@ -3,11 +3,7 @@ import 'package:flutter/material.dart';
 
 // BARCODE SCAN ICON
 Icon barcodeScanIconBlack = Icon(CupertinoIcons.barcode_viewfinder,
-    weight: 700,
-    opticalSize: 48,
-    grade: 0.25,
-    size: 88,
-    color: Colors.grey[850]);
+    weight: 700, opticalSize: 48, grade: 0.25, size: 88, color: Colors.grey[850]);
 
 const Icon barcodeScanIconWhite = Icon(CupertinoIcons.barcode_viewfinder,
     weight: 700, opticalSize: 48, grade: 0.25, size: 88, color: Colors.white);
@@ -111,3 +107,6 @@ const Icon boltIcon = Icon(
 const Icon boltIconSlashed = Icon(
   CupertinoIcons.bolt_slash_fill,
 );
+
+// settings info icon
+const settingsInfoIcon = CupertinoIcons.info_circle;
