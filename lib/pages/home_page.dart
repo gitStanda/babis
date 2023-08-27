@@ -38,17 +38,24 @@ class _HomePageState extends State<HomePage> {
     bool hasInternet = await InternetConnectionChecker().hasConnection;
     if (hasInternet) {
       bool isNewData = await isNewVersion();
-      if (isNewData) {
-        //TODO: fix this somehow???
-        showDialog(
-          context: context,
-          builder: (_) => CupertinoAlertDialog(
-            title: const Text('K dispozici jsou nová data, stáhni si je v "Databázi".'),
-            content: Image.asset("assets/babis.gif"),
-            actions: const [CupertinoDialogAction(child: Text("OK"))],
-          ),
-          barrierDismissible: true,
-        );
+      if (mounted) {
+        if (isNewData) {
+          await showDialog(
+            context: context,
+            builder: (_) => CupertinoAlertDialog(
+              title: const Text('K dispozici jsou nová data, stáhni si je v "Databázi".'),
+              content: Image.asset("assets/babis.gif"),
+              actions: [
+                CupertinoDialogAction(
+                  isDefaultAction: true,
+                  onPressed: () => Navigator.of(context).pop(),
+                  child: const Text("OK"),
+                )
+              ],
+            ),
+            barrierDismissible: true,
+          );
+        }
       }
     }
   }

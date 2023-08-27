@@ -50,5 +50,5 @@ Future<bool> isNewVersion() async {
     throw ("Chyba pri porovnavani / stahovani verze: $error");
   }
 
-  return true; // TODO zmenit na false
+  return false; // TODO po testovani zmenit na false
 }

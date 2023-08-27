@@ -15,6 +15,8 @@ Comments, strings & data stuff (json, models, parsed data, result class, ...) ar
 - Saving JSONs locally instead of list of parsed ResultData or some kind of database (maybe sqlite)? - This results in app having to parse every time it is run (even though it's fast).
 
 # My TODO:
+- all TODOS in code
+- when opened for the first time with internet connection download Data
 - validate user input
 - Logo aplikace 
 - Oznacit veci z Ruska
