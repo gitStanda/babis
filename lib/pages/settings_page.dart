@@ -62,7 +62,7 @@ class _SettingsPageState extends State<SettingsPage> {
                 ),
               ],
             ),
-            // todo: monetization
+            // TODO: monetization
             SettingsGroup(
               settingsGroupTitle: "Reklamy",
               items: [

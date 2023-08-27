@@ -19,6 +19,7 @@ Future<bool> downloadData() async {
     'https://api.npoint.io/91f12e3d2005b55a2b74', // Norma
     'https://api.npoint.io/cef263d4cc5aae2cbb9b', // Penny
     'https://api.npoint.io/1f5cfddc28407c80ed3e', // Tesco
+    'https://api.npoint.io/5bd8a928a1ab49f5bf54', // verze dat
   ];
 
   List<String> filePaths = [
@@ -34,6 +35,7 @@ Future<bool> downloadData() async {
     'Norma.json',
     'Penny.json',
     'Tesco.json',
+    'data_version_local.json',
     // Add more file paths here
   ];
 
