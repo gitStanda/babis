@@ -1,6 +1,6 @@
 import 'package:babisappka/components/icons.dart';
 import 'package:babisappka/core/notifiers.dart';
-import 'package:babisappka/pages/about_page.dart';
+
 import 'package:babisappka/pages/data_page.dart';
 import 'package:babisappka/pages/settings_page.dart';
 import 'package:flutter/material.dart';
@@ -37,11 +37,6 @@ AppBar myAppBar(BuildContext context) {
             value: 1,
             child: Text('Nastavení'),
           ),
-          const PopupMenuDivider(),
-          const PopupMenuItem<int>(
-            value: 2,
-            child: Text('O aplikaci'),
-          ),
         ],
       ),
     ],
@@ -58,11 +53,6 @@ void onSelected(BuildContext context, int item) {
     case 1:
       Navigator.of(context).push(
         MaterialPageRoute(builder: (context) => const SettingsPage()),
-      );
-      break;
-    case 2:
-      Navigator.of(context).push(
-        MaterialPageRoute(builder: (context) => const AboutPage()),
       );
       break;
   }

@@ -32,6 +32,7 @@ class MyApp extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           title: 'BabišAppka',
           theme: ThemeData(
+            platform: TargetPlatform.iOS,
             colorScheme: ColorScheme.fromSeed(
                 seedColor: Colors.teal.shade900, brightness: isDark ? Brightness.dark : Brightness.light),
             useMaterial3: true,

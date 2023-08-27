@@ -35,7 +35,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.secondaryContainer, // barva aplikace
+      backgroundColor: Theme.of(context).colorScheme.secondaryContainer,
       appBar: myAppBar(context),
       resizeToAvoidBottomInset: false,
       body: SafeArea(
