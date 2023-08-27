@@ -1,14 +1,16 @@
+import 'package:babisappka/core/functions/is_new_version.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:babisappka/components/my_appbar.dart';
-import 'package:babisappka/core/notifiers.dart';
 
 import 'package:babisappka/core/widgets/result_widget.dart';
-import 'package:babisappka/core/widgets/select_widget.dart';
-import 'package:flutter/material.dart';
-
 import '../core/widgets/camera_widget.dart';
 import '../core/widgets/manual_type_widget.dart';
 
-// import 'package:babisappka/widgets/title_widget.dart';
+import 'package:babisappka/core/widgets/select_widget.dart';
+
+import 'package:internet_connection_checker/internet_connection_checker.dart';
+import 'package:babisappka/core/notifiers.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -30,6 +32,33 @@ class _HomePageState extends State<HomePage> {
     } else {
       return const ResultWidget();
     }
+  }
+
+  newVersionDialog() async {
+    bool hasInternet = await InternetConnectionChecker().hasConnection;
+    if (hasInternet) {
+      bool isNewData = await isNewVersion();
+      if (isNewData) {
+        //TODO: fix this somehow???
+        showDialog(
+          context: context,
+          builder: (_) => CupertinoAlertDialog(
+            title: const Text('K dispozici jsou nová data, stáhni si je v "Databázi".'),
+            content: Image.asset("assets/babis.gif"),
+            actions: const [CupertinoDialogAction(child: Text("OK"))],
+          ),
+          barrierDismissible: true,
+        );
+      }
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      newVersionDialog();
+    });
   }
 
   @override
