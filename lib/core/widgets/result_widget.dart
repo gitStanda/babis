@@ -1,4 +1,5 @@
 import 'package:babisappka/components/icons.dart';
+import 'package:babisappka/components/show_report_dialog.dart';
 import 'package:babisappka/core/functions/load_data.dart';
 import 'package:babisappka/core/notifiers.dart';
 import 'package:flutter/material.dart';
@@ -33,7 +34,7 @@ class ResultWidget extends StatelessWidget {
               return const CircularProgressIndicator();
             } else {
               ResultData? vyslednaFirma = snapshot.data;
-              return resultWidgetDesign(scannedYet, result, vyslednaFirma);
+              return resultWidgetDesign(scannedYet, result, vyslednaFirma, context);
             }
           },
         );
@@ -41,7 +42,7 @@ class ResultWidget extends StatelessWidget {
     );
   }
 
-  Center resultWidgetDesign(bool scannedYet, String result, ResultData? vyslednaFirma) {
+  Center resultWidgetDesign(bool scannedYet, String result, ResultData? vyslednaFirma, BuildContext context) {
     return Center(
       // bez singlescrollview nefunguje klavesnice v manualtype widgetu poradne (byva tam overflow)
       child: SingleChildScrollView(
@@ -84,7 +85,13 @@ class ResultWidget extends StatelessWidget {
                   padding: const EdgeInsets.only(top: 8),
                   child: Text("Poznámka: ${vyslednaFirma.dodatek}", textAlign: TextAlign.center),
                 ),
-              ]
+              ],
+              Padding(
+                  padding: const EdgeInsets.only(top: 16),
+                  child: ElevatedButton(
+                    onPressed: () => showReportDialog(context),
+                    child: const Text("Nahlásit chybu"),
+                  )),
             ],
           ],
         ),

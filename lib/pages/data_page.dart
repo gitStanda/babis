@@ -1,3 +1,4 @@
+import 'package:babisappka/components/show_report_dialog.dart';
 import 'package:babisappka/core/functions/download_data.dart';
 
 import 'package:flutter/material.dart';
@@ -15,7 +16,7 @@ class DataPageState extends State<DataPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Aktualizace dat'),
+        title: const Text('Databáze'),
         centerTitle: true,
       ),
       body: SafeArea(
@@ -29,6 +30,12 @@ class DataPageState extends State<DataPage> {
                 },
                 child: const Text('Aktualizovat data'),
               ),
+              Padding(
+                  padding: const EdgeInsets.only(top: 16),
+                  child: ElevatedButton(
+                    onPressed: () => showReportDialog(context),
+                    child: const Text("Nahlásit chybu v databázi"),
+                  )),
             ],
           ),
         ),
