@@ -45,8 +45,8 @@ class _SettingsPageState extends State<SettingsPage> {
                     backgroundColor: const Color(0xFF642ef3),
                     borderRadius: 20,
                   ),
-                  title: 'Dark mode',
-                  subtitle: "Automatic",
+                  title: 'Tmavý režim',
+                  // subtitle: "",
                   trailing: Switch.adaptive(
                     value: isDarkModeNotifier.value,
                     onChanged: (value) async {
