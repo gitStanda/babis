@@ -9,6 +9,7 @@ Comments, strings & data stuff (json, models, parsed data, result class, ...) ar
 ![image](https://github.com/gitStanda/babis/assets/136804505/83415efd-eeeb-47b9-889f-a11566a8dada)
 ![image](https://github.com/gitStanda/babis/assets/136804505/8e1a3b5e-355a-4f89-8ec8-906adc12ec95)
 ![image](https://github.com/gitStanda/babis/assets/136804505/468baf8e-5a70-4de0-aa11-b0bef8dd7f39)
+![image](https://github.com/gitStanda/babis/assets/136804505/22a84eb3-2e0d-427e-9858-a4663d9213dc)
 
 # Problems I am aware of
 
