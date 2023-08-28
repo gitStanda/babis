@@ -21,7 +21,6 @@ Comments, strings & data stuff (json, models, parsed data, result class, ...) ar
 
 # My TODO:
 - all TODOS in code
-- when opened for the first time with internet connection download Data
 - validate user input
 - Logo aplikace 
 - Oznacit veci z Ruska
@@ -30,7 +29,6 @@ Comments, strings & data stuff (json, models, parsed data, result class, ...) ar
 - Pridat vyhledavani pomoci nazvu
 - Pridat vyhledavani pomoci oválné značky výrobce
 - Nastaveni - zobrazeni reklam?, 
-- Databaze - FB skupina popup pri nahlaseni chyby
 
 ## monetize (trying to get some of the $100 a year for AppStore back)
 Maybe reklamy?
