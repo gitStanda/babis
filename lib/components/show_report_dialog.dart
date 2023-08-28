@@ -1,4 +1,4 @@
-import 'package:babisappka/components/open_fb.dart';
+import 'package:babisappka/core/functions/open_fb.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 

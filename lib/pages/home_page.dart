@@ -1,6 +1,8 @@
-import 'package:babisappka/core/functions/is_new_version.dart';
+import 'package:babisappka/components/start_dialogs.dart';
+import 'package:babisappka/core/notifiers.dart';
+
 import 'package:flutter/material.dart';
-import 'package:flutter/cupertino.dart';
+
 import 'package:babisappka/components/my_appbar.dart';
 
 import 'package:babisappka/core/widgets/result_widget.dart';
@@ -8,9 +10,6 @@ import '../core/widgets/camera_widget.dart';
 import '../core/widgets/manual_type_widget.dart';
 
 import 'package:babisappka/core/widgets/select_widget.dart';
-
-import 'package:internet_connection_checker/internet_connection_checker.dart';
-import 'package:babisappka/core/notifiers.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -34,37 +33,12 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
-  newVersionDialog() async {
-    bool hasInternet = await InternetConnectionChecker().hasConnection;
-    if (hasInternet) {
-      bool isNewData = await isNewVersion();
-      if (mounted) {
-        if (isNewData) {
-          await showDialog(
-            context: context,
-            builder: (_) => CupertinoAlertDialog(
-              title: const Text('K dispozici jsou nová data, stáhni si je v "Databázi".'),
-              content: Image.asset("assets/babis.gif"),
-              actions: [
-                CupertinoDialogAction(
-                  isDefaultAction: true,
-                  onPressed: () => Navigator.of(context).pop(),
-                  child: const Text("OK"),
-                )
-              ],
-            ),
-            barrierDismissible: true,
-          );
-        }
-      }
-    }
-  }
-
   @override
   void initState() {
     super.initState();
+    // dialog pokud poprve zapnuta nebo je k dispozici nova databaze
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      newVersionDialog();
+      startDialogs(context, mounted);
     });
   }
 
@@ -91,8 +65,6 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
             ),
-            // const Divider(),
-
             const SizedBox(
               width: 400,
               height: 150,

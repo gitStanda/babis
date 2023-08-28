@@ -1,5 +1,5 @@
 import 'package:babisappka/components/icons.dart';
-import 'package:babisappka/components/open_fb.dart';
+import 'package:babisappka/core/functions/open_fb.dart';
 import 'package:babisappka/core/notifiers.dart';
 import 'package:babstrap_settings_screen/babstrap_settings_screen.dart';
 import 'package:flutter/material.dart';
