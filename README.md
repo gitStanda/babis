@@ -31,9 +31,6 @@ Comments, strings & data stuff (json, models, parsed data, result class, ...) ar
 - Pridat vyhledavani pomoci oválné značky výrobce
 - Nastaveni - zobrazeni reklam?, 
 - Databaze - FB skupina popup pri nahlaseni chyby
-- Dodelat O aplikaci
-- Zmenit design? - zmensit tlacitka, appbar
-- Ohlasit uzivateli kdyz jsou nova data? idk how
 
 ## monetize (trying to get some of the $100 a year for AppStore back)
 Maybe reklamy?
