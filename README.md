@@ -21,7 +21,6 @@ Comments, strings & data stuff (json, models, parsed data, result class, ...) ar
 
 # My TODO:
 - all TODOS in code
-- validate user input
 - Logo aplikace 
 - Oznacit veci z Ruska
 - Vahove kody
