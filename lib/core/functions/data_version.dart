@@ -41,8 +41,6 @@ Future<DataVersionModel?> getNewDataVersion() async {
 }
 
 Future<bool> isNewVersion() async {
-  var dir = (await getApplicationDocumentsDirectory()).path;
-
   DataVersionModel? localDataVersion = await loadLocalDataVersion();
 
   // pokud jeste verze nikdy nebyla stazena

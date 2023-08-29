@@ -60,31 +60,35 @@ class DataPageState extends State<DataPage> {
                 thickness: 2,
                 color: Colors.black.withOpacity(0.33),
               ),
+              const SizedBox(height: 16),
               const Text(
                 'Ke správné identifikaci výrobců potřebuje aplikace občas aktualizovat svoje vnitřní data.\nAby to mohla udělat, musí se připojit k internetu. \n\nZapněte prosím mobilní data nebo WiFi a klikněte na tlačítko. Vše by se mělo vejít do objemu 0,5 MB.',
                 style: TextStyle(fontWeight: FontWeight.w500),
               ),
-              const SizedBox(height: 16),
+              const SizedBox(height: 24),
+              Center(
+                child: OutlinedButton(
+                  onPressed: () async {
+                    bool success = await downloadData();
+                    success ? showToast(true) : showToast(false);
+                  },
+                  child: const Text('Aktualizovat databázi'),
+                ),
+              ),
               Expanded(
                 child: Center(
                   child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      OutlinedButton(
-                        onPressed: () async {
-                          bool success = await downloadData();
-                          success ? showToast(true) : showToast(false);
-                        },
-                        child: const Text('Aktualizovat databázi'),
-                      ),
-                      const Spacer(),
                       const Text(
-                          'Stane-li se, že najdete v databázi chybu (např. špatně označuje výrobky), nahlašte ji v FB skupině "Sorry Yako".'),
+                        'Stane-li se, že najdete v databázi chybu (např. špatně označuje výrobky), nahlašte ji v FB skupině "Sorry Yako".',
+                        textAlign: TextAlign.center,
+                      ),
                       const SizedBox(height: 8),
                       TextButton(
                         onPressed: () => showReportDialog(context),
                         child: const Text("Nahlásit chybu v databázi"),
                       ),
-                      const SizedBox(height: 32),
                     ],
                   ),
                 ),

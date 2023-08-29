@@ -23,7 +23,6 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print(isDarkMode);
     isDarkModeNotifier.value = isDarkMode;
 
     return ValueListenableBuilder(
