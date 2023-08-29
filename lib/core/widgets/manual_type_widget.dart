@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import '../notifiers.dart';
 
@@ -17,6 +18,8 @@ class ManualTypeWidget extends StatelessWidget {
     return Column(
       children: [
         TextField(
+          keyboardType: TextInputType.number,
+          inputFormatters: [FilteringTextInputFormatter.digitsOnly],
           controller: _textEditingController,
           decoration: const InputDecoration(
             hintText: 'Napiš čárový kód...',
@@ -25,7 +28,7 @@ class ManualTypeWidget extends StatelessWidget {
         const SizedBox(height: 16),
         ElevatedButton(
           onPressed: () => _updateScanResult(context),
-          child: const Text('Hotovo'),
+          child: const Text('Najít'),
         ),
       ],
     );
