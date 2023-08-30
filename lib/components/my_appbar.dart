@@ -9,12 +9,12 @@ AppBar myAppBar(BuildContext context) {
   return AppBar(
     elevation: 0,
     backgroundColor: Colors.black.withOpacity(0.1),
-    // Theme.of(context).colorScheme.secondary, // barva appbaru
     shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.only(
-      bottomLeft: Radius.circular(25),
-      bottomRight: Radius.circular(25),
-    )),
+      borderRadius: BorderRadius.only(
+        bottomLeft: Radius.circular(25),
+        bottomRight: Radius.circular(25),
+      ),
+    ),
     title: Text(
       "Babišovo?",
       style: TextStyle(
@@ -31,11 +31,11 @@ AppBar myAppBar(BuildContext context) {
         itemBuilder: (context) => [
           const PopupMenuItem<int>(
             value: 0,
-            child: Text('Databáze'),
+            child: Text('Nastavení'),
           ),
           const PopupMenuItem<int>(
             value: 1,
-            child: Text('Nastavení'),
+            child: Text('Databáze'),
           ),
         ],
       ),
@@ -47,12 +47,12 @@ void onSelected(BuildContext context, int item) {
   switch (item) {
     case 0:
       Navigator.of(context).push(
-        MaterialPageRoute(builder: (context) => const DataPage()),
+        MaterialPageRoute(builder: (context) => const SettingsPage()),
       );
       break;
     case 1:
       Navigator.of(context).push(
-        MaterialPageRoute(builder: (context) => const SettingsPage()),
+        MaterialPageRoute(builder: (context) => const DataPage()),
       );
       break;
   }

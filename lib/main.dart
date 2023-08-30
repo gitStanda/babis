@@ -4,8 +4,6 @@ import 'package:babisappka/pages/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-// import 'package:babisappka/widget_tree.dart'; // spodni navigace
-
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
