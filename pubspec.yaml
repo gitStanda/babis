@@ -78,6 +78,7 @@ flutter:
     - assets/babisANO.png
     - assets/babisNE.png
     - assets/babis.gif
+    - assets/putin.gif
 
 
   # An image asset can refer to one or more resolution-specific "variants", see

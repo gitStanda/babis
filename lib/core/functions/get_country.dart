@@ -19,7 +19,7 @@ List<String> generateICodes() {
   insertICodes(
     start: 0,
     end: 19,
-    country: "Spojené státy americké a Kanada",
+    country: "USA / Kanada",
   );
   insertICodes(
     start: 20,
@@ -29,7 +29,7 @@ List<String> generateICodes() {
   insertICodes(
     start: 30,
     end: 39,
-    country: "Spojené státy americké a Kanada",
+    country: "USA / Kanada",
   );
   insertICodes(
     start: 40,
@@ -44,12 +44,12 @@ List<String> generateICodes() {
   insertICodes(
     start: 60,
     end: 139,
-    country: "Spojené státy americké a Kanada",
+    country: "USA / Kanada",
   );
   insertICodes(
     start: 200,
     end: 299,
-    country: "Spojené státy americké a Kanada",
+    country: "USA / Kanada",
   );
   insertICodes(
     start: 300,

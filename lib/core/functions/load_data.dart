@@ -10,6 +10,7 @@ enum HoldingType {
   holding,
   mimoHolding,
   nejasne,
+  putin,
 }
 
 class FirmaData {
