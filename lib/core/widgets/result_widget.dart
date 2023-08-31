@@ -42,92 +42,70 @@ class ResultWidget extends StatelessWidget {
     );
   }
 
-  Center resultWidgetDesign(bool scannedYet, String result, ResultData? vyslednaFirma, BuildContext context) {
-    return Center(
-      // bez singlescrollview nefunguje klavesnice v manualtype widgetu poradne (byva tam overflow)
-      child: SingleChildScrollView(
-        child: Column(
-          children: [
-            // Pokud se ještě neskenovalo, vrátí ikonku skenneru
-            if (!scannedYet) ...[
-              Padding(
-                padding: const EdgeInsets.only(bottom: 40),
-                child: noResultIcon,
-              ),
-
-              // po skenovani
-            ] else ...[
-              Text(
-                "Naskenováno: $result",
-                style: const TextStyle(
-                  fontWeight: FontWeight.bold,
-                  decoration: TextDecoration.underline,
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(top: 24),
-                child: vyslednaFirma!.holding == HoldingType.mimoHolding
-                    ? goodResult()
-                    : vyslednaFirma.holding == HoldingType.nejasne
-                        ? idkResultIcon
-                        : badResult(),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(top: 16),
-                child: Text(
-                  "Výrobce\n${vyslednaFirma.nazev}",
-                  style: const TextStyle(fontWeight: FontWeight.bold),
-                  textAlign: TextAlign.center,
-                ),
-              ),
-              if (vyslednaFirma.dodatek.isNotEmpty) ...[
-                Padding(
-                  padding: const EdgeInsets.only(top: 8),
-                  child: Text("Poznámka: ${vyslednaFirma.dodatek}", textAlign: TextAlign.center),
-                ),
-              ],
-              Padding(
-                  padding: const EdgeInsets.only(top: 16),
-                  child: ElevatedButton(
-                    onPressed: () => showReportDialog(context),
-                    child: const Text("Nahlásit chybu"),
-                  )),
-            ],
+  resultWidgetDesign(bool scannedYet, String result, ResultData? vyslednaFirma, BuildContext context) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+    
+    
+      children: [
+        // Pokud se ještě neskenovalo, vrátí ikonku ruky
+        if (!scannedYet) ...[
+          Center(
+            child: noResultIcon,
+          ),
+    
+          // po skenovani
+        ] else ...[
+          Text(
+            "Naskenováno: $result",
+            style: const TextStyle(
+              fontWeight: FontWeight.bold,
+              decoration: TextDecoration.underline,
+            ),
+          ),
+          Text(
+            "Výrobce: ${vyslednaFirma!.nazev}",
+            style: const TextStyle(fontWeight: FontWeight.bold),
+            textAlign: TextAlign.center,
+          ),
+          vyslednaFirma.holding == HoldingType.mimoHolding
+              ? goodResult()
+              : vyslednaFirma.holding == HoldingType.nejasne
+                  ? idkResultIcon
+                  : badResult(),
+                  TextButton(
+            onPressed: () => showReportDialog(context),
+            child: const Text("Nahlásit chybu"),
+          ),
+        if (vyslednaFirma.zeme != null) ...[
+         Text(
+           "Země původu: ${vyslednaFirma.zeme}",
+           style: const TextStyle(fontWeight: FontWeight.bold),
+           textAlign: TextAlign.center,
+         ),
+],
+          if (vyslednaFirma.dodatek.isNotEmpty) ...[
+            Text("Poznámka: ${vyslednaFirma.dodatek}", textAlign: TextAlign.center),
           ],
-        ),
-      ),
-    );
-  }
-
-  Column badResult() {
-    return const Column(
-      children: [
-        // Text("[Tento produkt vyprodukovalo Babišovo impérium]"),
-        SizedBox(
-          height: 20,
-        ),
-        Image(
-          image: AssetImage('assets/babisANO.png'),
-          height: 300,
-          width: 200,
-        ),
+          
+        ],
       ],
     );
   }
 
-  Column goodResult() {
-    return const Column(
-      children: [
-        // Text("[Tento produkt Babiš nevlastní]"),
-        SizedBox(
-          height: 20,
-        ),
-        Image(
-          image: AssetImage('assets/babisNE.png'),
-          height: 300,
-          width: 200,
-        ),
-      ],
+  badResult() {
+    return const Image(
+      image: AssetImage('assets/babisANO.png'),
+      height: 300,
+      width: 200,
+    );
+  }
+
+  goodResult() {
+    return const Image(
+      image: AssetImage('assets/babisNE.png'),
+      height: 300,
+      width: 200,
     );
   }
 }
