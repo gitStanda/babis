@@ -4,6 +4,7 @@ import 'package:babisappka/core/functions/get_country.dart';
 class ResultData {
   late String nazev;
   late String dodatek;
+  String? zeme;
 
   late HoldingType holding;
 }
@@ -128,7 +129,8 @@ ResultData processCountry(String barcode, ResultData result) {
   String zeme = getCountry(barcode);
   // je z Ceska
   if (zeme == "Česká republika") {
-    result.nazev = "nezjištěná firma z České republiky";
+    result.nazev = "nezjištěná firma z ČR";
+    result.zeme = "Česká republika";
     result.dodatek =
         "Kód výrobce není v seznamu firem holdingu. Pro jistotu se můžete pokusit najít jméno výrobce na obalu.";
     result.holding = HoldingType.nejasne;
@@ -162,7 +164,8 @@ ResultData processCountry(String barcode, ResultData result) {
   }
   // je ze zahranici (vetsinou toto)
   else {
-    result.nazev = "nezjištěná firma\n\nZemě původu: $zeme";
+    result.nazev = "Nezjištěná firma";
+    result.zeme = zeme;
     result.dodatek = "Cokoliv nezjištěného, co nepochází z ČR, by mělo být OK";
     result.holding = HoldingType.mimoHolding;
   }

@@ -1,7 +1,7 @@
 final iCodes = [
-  iCode(start: 0, end: 19, country: "Spojené státy americké a Kanada"),
+  iCode(start: 0, end: 19, country: "USA / Kanada"),
   iCode(start: 20, end: 29, country: "neznámá, lokální užití"),
-  iCode(start: 30, end: 39, country: "Spojené státy americké a Kanada"),
+  iCode(start: 30, end: 39, country: "USA / Kanada"),
   iCode(
       start: 40,
       end: 49,
@@ -10,8 +10,8 @@ final iCodes = [
       start: 50,
       end: 59,
       country: "Zpravidla používá se vnitřní účely obchodního řetězce"),
-  iCode(start: 60, end: 139, country: "Spojené státy americké a Kanada"),
-  iCode(start: 200, end: 299, country: "Spojené státy americké a Kanada"),
+  iCode(start: 60, end: 139, country: "USA / Kanada"),
+  iCode(start: 200, end: 299, country: "USA / Kanada"),
   iCode(start: 300, end: 379, country: "Francie"),
   iCode(start: 380, end: 380, country: "Bulharsko"),
   iCode(start: 383, end: 383, country: "Slovinsko"),

@@ -2,6 +2,7 @@ import 'package:babisappka/core/notifiers.dart';
 import 'package:babisappka/pages/home_page.dart';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 void main() async {
@@ -21,6 +22,11 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setPreferredOrientations([
+        DeviceOrientation.portraitUp,
+        DeviceOrientation.portraitDown,
+      ]);
+      
     isDarkModeNotifier.value = isDarkMode;
 
     return ValueListenableBuilder(
