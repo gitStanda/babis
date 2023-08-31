@@ -135,6 +135,13 @@ ResultData processCountry(String barcode, ResultData result) {
         "Kód výrobce není v seznamu firem holdingu. Pro jistotu se můžete pokusit najít jméno výrobce na obalu.";
     result.holding = HoldingType.nejasne;
   }
+  // je z Ruska
+  if (zeme == "Rusko") {
+    result.nazev = "nezjištěná firma z Ruska";
+    result.zeme = "Rusko";
+    result.dodatek = "Tento produkt pochází z Ruska.";
+    result.holding = HoldingType.putin;
+  }
   // je privatni
   else if (zeme == "neznámá, lokální užití" || zeme == "privátní značka") {
     result.nazev = "privátní značka obchodního řetězce";
