@@ -194,3 +194,32 @@ Future<List<FirmaData>> loadPrivateLabels(String privateCompany) async {
   }
   return seznamFirem;
 }
+
+// nacte do seznamu pouze EAN kody co zacinaji na 20-29
+Future<List<FirmaData>> loadPrivate20(String privateCompany) async {
+  final dir = await getApplicationDocumentsDirectory();
+  List<FirmaData> seznamFirem = [];
+
+  try {
+    priv.PrivateModel privateModel = getDataPriv(dir, '$privateCompany.json');
+
+    // private parsing and filtering
+    if (privateModel.firmy != null) {
+      for (priv.Firmy firmy in privateModel.firmy!) {
+        if (firmy.kod!.startsWith(RegExp(r'^2[0-9]'))) {
+          seznamFirem.add(FirmaData(
+            kod: firmy.kod!,
+            nazev: firmy.produkt!,
+            holding: firmy.holding == 1
+                ? HoldingType.holding
+                : HoldingType.mimoHolding,
+            pozn: firmy.vyrobce!,
+          ));
+        }
+      }
+    }
+  } catch (e) {
+    throw ('Chyba při načítání dat: $e');
+  }
+  return seznamFirem;
+}

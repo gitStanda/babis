@@ -25,7 +25,7 @@ Future<ResultData> getResultData(String barcode) async {
     seznamEanFirem = await loadEans();
   }
 
-  FirmaData? firmaData = getCompanyData(barcode);
+  FirmaData? firmaData = await getCompanyData(barcode);
 
   ResultData result = ResultData();
 
@@ -66,16 +66,36 @@ Future<ResultData> getResultData(String barcode) async {
       result.dodatek = firmaData.pozn ?? "";
       result.holding = HoldingType.mimoHolding;
     }
+    //
+    else {
+      result.nazev = firmaData.nazev;
+      result.dodatek = firmaData.pozn ?? "";
+      result.holding = firmaData.holding;
+    }
   }
 
   return result;
 }
 
-FirmaData? getCompanyData(String barcode) {
+Future<FirmaData?> getCompanyData(String barcode) async {
   FirmaData? nalezenaFirma;
 
-  // TODO: weight, priv 20 ?
-  if (barcode.length > 2 && barcode.startsWith("2")) {}
+  // vahove kody
+  if (barcode.length > 2 &&
+      (barcode.startsWith("29") ||
+          barcode.startsWith("28") ||
+          barcode.startsWith("27"))) {
+    // NORMA ma 4 vahove kody co zacinaji na 27 stejne jako nektere priv20, je to vtip
+  }
+  // priv20 - privatni retezec co zacina na 20, z nejakeho duvodu nejsou uz v seznamu ean???
+  if (barcode.length > 2 &&
+      (barcode.startsWith("40") ||
+          barcode.startsWith("27") ||
+          barcode.startsWith("25") ||
+          barcode.startsWith("20"))) {
+    FirmaData? priv20firma = await getPriv20(barcode);
+    if (priv20firma != null) return priv20firma;
+  }
 
   // 8 and 13 EAN basic barcodes
   for (FirmaData firmaData in seznamEanFirem) {
@@ -88,6 +108,7 @@ FirmaData? getCompanyData(String barcode) {
   return nalezenaFirma;
 }
 
+// pokud byla nalezena firma v Ean seznamu ale spada pod retezec, toto vytahne vic detailu
 Future<FirmaData?>? getPrivatniZnacka(String nazev, String barcode) async {
   List<FirmaData> privatniZnacka;
 
@@ -128,6 +149,26 @@ Future<FirmaData?>? getPrivatniZnacka(String nazev, String barcode) async {
   return null;
 }
 
+Future<FirmaData?>? getPriv20(String barcode) async {
+  if (privatniZnacka20 == null) {
+    // pouze tyto firmy maji priv 20 ean kody
+    privatniZnacka20 = (await loadPrivate20("Albert"));
+    privatniZnacka20!.addAll(await loadPrivate20("Globus"));
+    privatniZnacka20!.addAll(await loadPrivate20("Lidl"));
+    privatniZnacka20!.addAll(await loadPrivate20("Norma"));
+    privatniZnacka20!.addAll(await loadPrivate20("Penny"));
+  }
+
+  for (FirmaData firma in privatniZnacka20!) {
+    if (compLeft(firma.kod, barcode)) {
+      return firma;
+    }
+  }
+
+  return null;
+}
+
+// Pokud nebyla nalezena firma
 ResultData processCountry(String barcode, ResultData result) {
   String zeme = getCountry(barcode);
   // je z Ceska

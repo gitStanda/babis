@@ -19,7 +19,8 @@ Future<void> openFacebook() async {
     if (canLaunchNatively) {
       launchUrl(fbBundleUri);
     } else {
-      await launchUrl(Uri.parse(fallbackUrl), mode: LaunchMode.externalApplication);
+      await launchUrl(Uri.parse(fallbackUrl),
+          mode: LaunchMode.externalApplication);
     }
   } catch (e) {
     throw "$e";
