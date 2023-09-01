@@ -19,7 +19,7 @@ class FirmaData {
 
   final HoldingType holding;
   final String? pozn;
-  final bool? retezec;
+  bool? retezec;
   final String? struktura;
   int? pocet;
 

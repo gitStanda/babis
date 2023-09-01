@@ -33,7 +33,7 @@ Future<ResultData> getResultData(String barcode) async {
   if (firmaData == null) {
     processCountry(barcode, result);
   } else {
-    // je to RETEZEC - albert, tesco, kaufland, atd...
+    // pokud je to RETEZEC - albert, tesco, kaufland, atd...
     if (firmaData.retezec == true) {
       FirmaData? privZnacka = await getPrivatniZnacka(firmaData.nazev, barcode);
 
@@ -52,14 +52,14 @@ Future<ResultData> getResultData(String barcode) async {
         result.holding = HoldingType.nejasne;
       }
     }
-    // HOLDING
+    // pokud HOLDING
     else if (firmaData.retezec == false &&
         firmaData.holding == HoldingType.holding) {
       result.nazev = "AGROFERT - ${firmaData.nazev}";
       result.dodatek = firmaData.pozn ?? "";
       result.holding = HoldingType.holding;
     }
-    // NENI HOLDING
+    // pokud NENI HOLDING
     else if (firmaData.retezec == false &&
         firmaData.holding == HoldingType.mimoHolding) {
       result.nazev = firmaData.nazev;
@@ -73,6 +73,9 @@ Future<ResultData> getResultData(String barcode) async {
 
 FirmaData? getCompanyData(String barcode) {
   FirmaData? nalezenaFirma;
+
+  // TODO: weight, priv 20 ?
+  if (barcode.length > 2 && barcode.startsWith("2")) {}
 
   // 8 and 13 EAN basic barcodes
   for (FirmaData firmaData in seznamEanFirem) {

@@ -20,6 +20,7 @@ Future<bool> downloadData() async {
     'https://api.npoint.io/cef263d4cc5aae2cbb9b', // Penny
     'https://api.npoint.io/1f5cfddc28407c80ed3e', // Tesco
     'https://api.npoint.io/5bd8a928a1ab49f5bf54', // verze dat
+    'https://api.npoint.io/c8daae65c7e9eb327465', // vahove kody
   ];
 
   List<String> filePaths = [
@@ -36,7 +37,7 @@ Future<bool> downloadData() async {
     'Penny.json',
     'Tesco.json',
     'data_version_local.json',
-    // Add more file paths here
+    'weight_products.json',
   ];
 
   for (int index = 0; index < urls.length; index++) {
