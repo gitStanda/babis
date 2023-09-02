@@ -19,7 +19,7 @@ class ManualTypeWidget extends StatelessWidget {
       children: [
         TextField(
           keyboardType: TextInputType.number,
-          inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+          inputFormatters: [FilteringTextInputFormatter.digitsOnly, LengthLimitingTextInputFormatter(20)],
           controller: _textEditingController,
           decoration: const InputDecoration(
             hintText: 'Napiš čárový kód...',
