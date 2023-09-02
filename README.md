@@ -19,6 +19,7 @@ Comments, strings & data stuff (json, models, parsed data, result class, ...) ar
 
 # My TODO:
 - all TODOS in code
+- nefunguje offline pri prvnim spusteni - fixnout - stahnout nejaky default asset jsons
 - Logo aplikace 
 - Zmenit Babis obrazky
 - Pridat vyhledavani pomoci nazvu
