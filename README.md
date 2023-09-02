@@ -21,8 +21,6 @@ Comments, strings & data stuff (json, models, parsed data, result class, ...) ar
 # My TODO:
 - all TODOS in code
 - Logo aplikace 
-- Oznacit veci z Ruska
-- Vahove kody
 - Zmenit Babis obrazky
 - Pridat vyhledavani pomoci nazvu
 - Pridat vyhledavani pomoci oválné značky výrobce

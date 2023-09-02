@@ -19,7 +19,7 @@ class FirmaData {
 
   final HoldingType holding;
   final String? pozn;
-  final bool? retezec;
+  bool? retezec;
   final String? struktura;
   int? pocet;
 
@@ -179,13 +179,12 @@ Future<List<FirmaData>> loadPrivateLabels(String privateCompany) async {
 
     if (privateModel.firmy != null) {
       for (priv.Firmy firmy in privateModel.firmy!) {
+        String nazev = formatOutput(firmy.vyrobce!, firmy.kod!, privateCompany);
         seznamFirem.add(FirmaData(
           kod: firmy.kod!,
-          nazev: firmy.produkt!,
-          holding: firmy.holding == 1
-              ? HoldingType.holding
-              : HoldingType.mimoHolding,
-          pozn: firmy.vyrobce!,
+          nazev: nazev,
+          holding: firmy.holding == 1 ? HoldingType.holding : HoldingType.mimoHolding,
+          pozn: firmy.produkt!,
         ));
       }
     }
@@ -193,4 +192,101 @@ Future<List<FirmaData>> loadPrivateLabels(String privateCompany) async {
     throw ('Chyba při načítání dat: $e');
   }
   return seznamFirem;
+}
+
+// nacte do seznamu pouze EAN kody co zacinaji na 20-29
+Future<List<FirmaData>> loadPrivate20(String privateCompany) async {
+  final dir = await getApplicationDocumentsDirectory();
+  List<FirmaData> seznamFirem = [];
+
+  try {
+    priv.PrivateModel privateModel = getDataPriv(dir, '$privateCompany.json');
+
+    // private parsing and filtering
+    if (privateModel.firmy != null) {
+      for (priv.Firmy firmy in privateModel.firmy!) {
+        if (firmy.kod!.startsWith(RegExp(r'^2[0-9]'))) {
+          String nazev = formatOutput(firmy.vyrobce!, firmy.kod!, privateCompany);
+          seznamFirem.add(FirmaData(
+            kod: firmy.kod!,
+            nazev: nazev,
+            holding: firmy.holding == 1 ? HoldingType.holding : HoldingType.mimoHolding,
+            pozn: firmy.produkt!,
+          ));
+        }
+      }
+    }
+  } catch (e) {
+    throw ('Chyba při načítání dat: $e');
+  }
+  return seznamFirem;
+}
+
+Future<List<FirmaData>> loadWeights() async {
+  final dir = await getApplicationDocumentsDirectory();
+  List<FirmaData> seznamFirem = [];
+
+  try {
+    priv.PrivateModel privateModel = getDataPriv(dir, 'weight_products.json');
+
+    if (privateModel.firmy != null) {
+      for (priv.Firmy firmy in privateModel.firmy!) {
+        String vyrobek = formatOutput(firmy.produkt!, firmy.kod!, null);
+
+        seznamFirem.add(FirmaData(
+          kod: firmy.kod!,
+          nazev: firmy.vyrobce!,
+          holding: firmy.holding == 1 ? HoldingType.holding : HoldingType.mimoHolding,
+          pozn: vyrobek, // modifikovany vyrobek
+        ));
+      }
+    }
+  } catch (e) {
+    throw ('Chyba při načítání dat: $e');
+  }
+  return seznamFirem;
+}
+
+String formatOutput(String output, String kod, String? privateCompany) {
+  // upravuju weight product output
+  if (privateCompany == null) {
+    output = output.replaceAll("{A}", "Albert: ");
+    output = output.replaceAll("{B}", "Billa: ");
+    output = output.replaceAll("{G}", "Globus: ");
+    output = output.replaceAll("{K}", "Kaufland: ");
+    output = output.replaceAll("{L}", "Lidl: ");
+    output = output.replaceAll("{M}", "Makro: ");
+    output = output.replaceAll("{N}", "Norma: ");
+    output = output.replaceAll("{P}", "Penny: ");
+    output = output.replaceAll("{T}", "Tesco: ");
+    output += " ${getPriceFromBarcode(kod)}";
+    return output;
+  }
+  // upravuju private label output
+  else {
+    output += " (${privateCompany.toUpperCase()})";
+
+    return output;
+  }
+}
+
+String getPriceFromBarcode(String kod) {
+  if (kod.length < 12) {
+    return "";
+  }
+
+  try {
+    String sWeight = kod.substring(7, 12);
+
+    double iWeight = double.tryParse(sWeight) ?? 0.0;
+
+    // prilis mala hmotnost je v gramech, jinak kg
+    if (iWeight < 100) {
+      return ", ${iWeight.toStringAsFixed(0)}g";
+    } else {
+      return ", ${(iWeight / 1000).toStringAsFixed(3)}kg";
+    }
+  } catch (e) {
+    return "";
+  }
 }
