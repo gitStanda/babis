@@ -41,8 +41,8 @@ Future<ResultData> getResultData(String barcode) async {
       // nasel se dodavatel tohoto produktu
       if (privZnacka != null) {
         // tady to je trochu prohozene aby to davalo smysl v aplikaci
-        result.nazev = privZnacka.pozn!;
-        result.dodatek = privZnacka.nazev;
+        result.nazev = privZnacka.nazev;
+        result.dodatek = privZnacka.pozn!;
         result.holding = privZnacka.holding;
       }
       // nenasel se dodavatel tohoto produktu
@@ -54,15 +54,13 @@ Future<ResultData> getResultData(String barcode) async {
       }
     }
     // pokud HOLDING
-    else if (firmaData.retezec == false &&
-        firmaData.holding == HoldingType.holding) {
+    else if (firmaData.retezec == false && firmaData.holding == HoldingType.holding) {
       result.nazev = "AGROFERT - ${firmaData.nazev}";
       result.dodatek = firmaData.pozn ?? "";
       result.holding = HoldingType.holding;
     }
     // pokud NENI HOLDING
-    else if (firmaData.retezec == false &&
-        firmaData.holding == HoldingType.mimoHolding) {
+    else if (firmaData.retezec == false && firmaData.holding == HoldingType.mimoHolding) {
       result.nazev = firmaData.nazev;
       result.dodatek = firmaData.pozn ?? "";
       result.holding = HoldingType.mimoHolding;
@@ -83,9 +81,7 @@ Future<FirmaData?> getCompanyData(String barcode) async {
 
   // vahove kody
   if (barcode.length > 2 &&
-      (barcode.startsWith("29") ||
-          barcode.startsWith("28") ||
-          barcode.startsWith("27"))) {
+      (barcode.startsWith("29") || barcode.startsWith("28") || barcode.startsWith("27"))) {
     // NORMA ma 4 vahove kody co zacinaji na 27 stejne jako nektere priv20, je to vtip
     FirmaData? weightFirma = await getWeightFirma(barcode);
     if (weightFirma != null) return weightFirma;

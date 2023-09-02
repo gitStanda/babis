@@ -179,13 +179,12 @@ Future<List<FirmaData>> loadPrivateLabels(String privateCompany) async {
 
     if (privateModel.firmy != null) {
       for (priv.Firmy firmy in privateModel.firmy!) {
+        String nazev = formatOutput(firmy.vyrobce!, firmy.kod!, privateCompany);
         seznamFirem.add(FirmaData(
           kod: firmy.kod!,
-          nazev: firmy.produkt!,
-          holding: firmy.holding == 1
-              ? HoldingType.holding
-              : HoldingType.mimoHolding,
-          pozn: firmy.vyrobce!,
+          nazev: nazev,
+          holding: firmy.holding == 1 ? HoldingType.holding : HoldingType.mimoHolding,
+          pozn: firmy.produkt!,
         ));
       }
     }
@@ -207,13 +206,12 @@ Future<List<FirmaData>> loadPrivate20(String privateCompany) async {
     if (privateModel.firmy != null) {
       for (priv.Firmy firmy in privateModel.firmy!) {
         if (firmy.kod!.startsWith(RegExp(r'^2[0-9]'))) {
+          String nazev = formatOutput(firmy.vyrobce!, firmy.kod!, privateCompany);
           seznamFirem.add(FirmaData(
             kod: firmy.kod!,
-            nazev: firmy.produkt!,
-            holding: firmy.holding == 1
-                ? HoldingType.holding
-                : HoldingType.mimoHolding,
-            pozn: firmy.vyrobce!,
+            nazev: nazev,
+            holding: firmy.holding == 1 ? HoldingType.holding : HoldingType.mimoHolding,
+            pozn: firmy.produkt!,
           ));
         }
       }
@@ -233,17 +231,13 @@ Future<List<FirmaData>> loadWeights() async {
 
     if (privateModel.firmy != null) {
       for (priv.Firmy firmy in privateModel.firmy!) {
-        String vyrobek = firmy.produkt!;
-
-        vyrobek = replacePlaceholders(vyrobek, firmy.kod!);
+        String vyrobek = formatOutput(firmy.produkt!, firmy.kod!, null);
 
         seznamFirem.add(FirmaData(
           kod: firmy.kod!,
-          nazev: firmy.vyrobce!, // modifikovany vyrobek
-          holding: firmy.holding == 1
-              ? HoldingType.holding
-              : HoldingType.mimoHolding,
-          pozn: vyrobek,
+          nazev: firmy.vyrobce!,
+          holding: firmy.holding == 1 ? HoldingType.holding : HoldingType.mimoHolding,
+          pozn: vyrobek, // modifikovany vyrobek
         ));
       }
     }
@@ -253,18 +247,27 @@ Future<List<FirmaData>> loadWeights() async {
   return seznamFirem;
 }
 
-String replacePlaceholders(String vyrobek, String kod) {
-  vyrobek = vyrobek.replaceAll("{A}", "Albert: ");
-  vyrobek = vyrobek.replaceAll("{B}", "Billa: ");
-  vyrobek = vyrobek.replaceAll("{G}", "Globus: ");
-  vyrobek = vyrobek.replaceAll("{K}", "Kaufland: ");
-  vyrobek = vyrobek.replaceAll("{L}", "Lidl: ");
-  vyrobek = vyrobek.replaceAll("{M}", "Makro: ");
-  vyrobek = vyrobek.replaceAll("{N}", "Norma: ");
-  vyrobek = vyrobek.replaceAll("{P}", "Penny: ");
-  vyrobek = vyrobek.replaceAll("{T}", "Tesco: ");
-  vyrobek += " ${getPriceFromBarcode(kod)}";
-  return vyrobek;
+String formatOutput(String output, String kod, String? privateCompany) {
+  // upravuju weight product output
+  if (privateCompany == null) {
+    output = output.replaceAll("{A}", "Albert: ");
+    output = output.replaceAll("{B}", "Billa: ");
+    output = output.replaceAll("{G}", "Globus: ");
+    output = output.replaceAll("{K}", "Kaufland: ");
+    output = output.replaceAll("{L}", "Lidl: ");
+    output = output.replaceAll("{M}", "Makro: ");
+    output = output.replaceAll("{N}", "Norma: ");
+    output = output.replaceAll("{P}", "Penny: ");
+    output = output.replaceAll("{T}", "Tesco: ");
+    output += " ${getPriceFromBarcode(kod)}";
+    return output;
+  }
+  // upravuju private label output
+  else {
+    output += " (${privateCompany.toUpperCase()})";
+
+    return output;
+  }
 }
 
 String getPriceFromBarcode(String kod) {
