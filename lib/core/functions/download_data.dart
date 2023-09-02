@@ -1,3 +1,4 @@
+import 'package:babisappka/core/notifiers.dart';
 import 'package:dio/dio.dart';
 import 'package:path_provider/path_provider.dart';
 
@@ -44,11 +45,14 @@ Future<bool> downloadData() async {
     try {
       String url = urls[index];
       String filePath = filePaths[index];
+      int total = urls.length;
 
       var response = await dio.download(
         url,
         "$dir/$filePath",
       );
+
+      updateDownloadProgress(index, total);
 
       if (response.statusCode != 200) {
         return false;
@@ -57,5 +61,11 @@ Future<bool> downloadData() async {
       return false;
     }
   }
+  downloadProgress.value = 0;
   return true;
+}
+
+void updateDownloadProgress(int index, int total) {
+  double progress = index / total;
+  downloadProgress.value = progress;
 }

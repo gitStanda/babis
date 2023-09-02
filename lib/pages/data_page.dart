@@ -2,6 +2,7 @@ import 'package:babisappka/components/show_report_dialog.dart';
 import 'package:babisappka/core/functions/download_data.dart';
 import 'package:babisappka/core/functions/data_version.dart';
 import 'package:babisappka/core/models/data_version_model.dart';
+import 'package:babisappka/core/notifiers.dart';
 
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -16,6 +17,7 @@ class DataPage extends StatefulWidget {
 class DataPageState extends State<DataPage> {
   DataVersionModel? localDataVersion;
   DataVersionModel? newDataVersion;
+  bool downloading = false;
 
   @override
   void initState() {
@@ -68,12 +70,34 @@ class DataPageState extends State<DataPage> {
               const SizedBox(height: 24),
               Center(
                 child: OutlinedButton(
-                  onPressed: () async {
-                    bool success = await downloadData();
-                    success ? showToast(true) : showToast(false);
-                  },
+                  onPressed: downloading
+                      ? null
+                      : () async {
+                          setState(() {
+                            downloading = true;
+                          });
+                          bool success = await downloadData();
+                          success ? showToast(true) : showToast(false);
+                          setState(() {
+                            downloading = false;
+                          });
+                        },
                   child: const Text('Aktualizovat databázi'),
                 ),
+              ),
+              const SizedBox(
+                height: 32,
+              ),
+              ValueListenableBuilder(
+                valueListenable: downloadProgress,
+                builder: (context, progress, child) {
+                  return downloading
+                      ? LinearProgressIndicator(
+                          minHeight: 5,
+                          value: progress,
+                        )
+                      : const SizedBox.shrink();
+                },
               ),
               Expanded(
                 child: Center(

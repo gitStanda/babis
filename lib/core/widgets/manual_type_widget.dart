@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -21,8 +22,17 @@ class ManualTypeWidget extends StatelessWidget {
           keyboardType: TextInputType.number,
           inputFormatters: [FilteringTextInputFormatter.digitsOnly, LengthLimitingTextInputFormatter(20)],
           controller: _textEditingController,
-          decoration: const InputDecoration(
+          decoration: InputDecoration(
             hintText: 'Napiš čárový kód...',
+            prefixIcon: const Icon(CupertinoIcons.barcode),
+            enabledBorder: OutlineInputBorder(
+              borderSide: const BorderSide(),
+              borderRadius: BorderRadius.circular(10),
+            ),
+            focusedBorder: OutlineInputBorder(
+              borderSide: BorderSide(color: Colors.white),
+              borderRadius: BorderRadius.circular(10),
+            ),
           ),
         ),
         const SizedBox(height: 16),
