@@ -49,8 +49,53 @@ class DataPageState extends State<DataPage> {
         child: Padding(
           padding: const EdgeInsets.all(12.0),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
+              // Divider(
+              //   thickness: 2,
+              //   color: Colors.black.withOpacity(0.33),
+              // ),
+              const SizedBox(height: 16),
+              const Text(
+                'Ke správné identifikaci výrobců potřebuje aplikace občas aktualizovat svoje vnitřní data.\nAby to mohla udělat, musí se připojit k internetu. \n\nZapněte prosím mobilní data nebo WiFi a klikněte na tlačítko. Vše by se mělo vejít do objemu 0,5 MB.',
+                style: TextStyle(fontWeight: FontWeight.w500),
+              ),
+              const SizedBox(height: 24),
+              ValueListenableBuilder(
+                valueListenable: downloadProgress,
+                builder: (context, progress, child) {
+                  return LinearProgressIndicator(
+                    minHeight: 16,
+                    color: Theme.of(context).colorScheme.onPrimary,
+                    backgroundColor: Theme.of(context).colorScheme.primary,
+                    value: progress,
+                    borderRadius:
+                        const BorderRadius.horizontal(left: Radius.circular(10), right: Radius.circular(10)),
+                  );
+                },
+              ),
+              const SizedBox(
+                height: 32,
+              ),
+              OutlinedButton(
+                onPressed: downloading
+                    ? null
+                    : () async {
+                        setState(() {
+                          downloading = true;
+                        });
+                        bool success = await downloadData();
+                        success ? showToast(true) : showToast(false);
+                        setState(() {
+                          downloading = false;
+                        });
+                      },
+                child: const Text('Aktualizovat databázi'),
+              ),
+
+              const SizedBox(
+                height: 32,
+              ),
               localDataVersion != null
                   ? Text('Verze databáze v aplikaci: ${localDataVersion!.datum!}', style: versionStyle)
                   : Text('Verze databáze v aplikaci není k dispozici', style: versionStyle),
@@ -58,47 +103,6 @@ class DataPageState extends State<DataPage> {
               newDataVersion != null
                   ? Text('Verze databáze ke stažení: ${newDataVersion!.datum!}', style: versionStyle)
                   : Text('Verze databáze ke stažení není k dispozici', style: versionStyle),
-              Divider(
-                thickness: 2,
-                color: Colors.black.withOpacity(0.33),
-              ),
-              const SizedBox(height: 16),
-              const Text(
-                'Ke správné identifikaci výrobců potřebuje aplikace občas aktualizovat svoje vnitřní data.\nAby to mohla udělat, musí se připojit k internetu. \n\nZapněte prosím mobilní data nebo WiFi a klikněte na tlačítko. Vše by se mělo vejít do objemu 0,5 MB.',
-                style: TextStyle(fontWeight: FontWeight.w500),
-              ),
-              const SizedBox(height: 24),
-              Center(
-                child: OutlinedButton(
-                  onPressed: downloading
-                      ? null
-                      : () async {
-                          setState(() {
-                            downloading = true;
-                          });
-                          bool success = await downloadData();
-                          success ? showToast(true) : showToast(false);
-                          setState(() {
-                            downloading = false;
-                          });
-                        },
-                  child: const Text('Aktualizovat databázi'),
-                ),
-              ),
-              const SizedBox(
-                height: 32,
-              ),
-              ValueListenableBuilder(
-                valueListenable: downloadProgress,
-                builder: (context, progress, child) {
-                  return downloading
-                      ? LinearProgressIndicator(
-                          minHeight: 5,
-                          value: progress,
-                        )
-                      : const SizedBox.shrink();
-                },
-              ),
               Expanded(
                 child: Center(
                   child: Column(
