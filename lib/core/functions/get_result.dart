@@ -19,6 +19,7 @@ List<FirmaData>? privatniZnackaNorma;
 List<FirmaData>? privatniZnackaPenny;
 List<FirmaData>? privatniZnackaTesco;
 List<FirmaData>? privatniZnacka20;
+List<FirmaData>? weightFirmy;
 
 Future<ResultData> getResultData(String barcode) async {
   if (seznamEanFirem.isEmpty) {
@@ -86,6 +87,8 @@ Future<FirmaData?> getCompanyData(String barcode) async {
           barcode.startsWith("28") ||
           barcode.startsWith("27"))) {
     // NORMA ma 4 vahove kody co zacinaji na 27 stejne jako nektere priv20, je to vtip
+    FirmaData? weightFirma = await getWeightFirma(barcode);
+    if (weightFirma != null) return weightFirma;
   }
   // priv20 - privatni retezec co zacina na 20, z nejakeho duvodu nejsou uz v seznamu ean???
   if (barcode.length > 2 &&
@@ -106,6 +109,18 @@ Future<FirmaData?> getCompanyData(String barcode) async {
   }
 
   return nalezenaFirma;
+}
+
+Future<FirmaData?>? getWeightFirma(String barcode) async {
+  weightFirmy ??= (await loadWeights());
+
+  for (FirmaData firma in weightFirmy!) {
+    if (compLeft(firma.kod, barcode)) {
+      return firma;
+    }
+  }
+
+  return null;
 }
 
 // pokud byla nalezena firma v Ean seznamu ale spada pod retezec, toto vytahne vic detailu

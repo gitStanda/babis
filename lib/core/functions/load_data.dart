@@ -223,3 +223,67 @@ Future<List<FirmaData>> loadPrivate20(String privateCompany) async {
   }
   return seznamFirem;
 }
+
+Future<List<FirmaData>> loadWeights() async {
+  final dir = await getApplicationDocumentsDirectory();
+  List<FirmaData> seznamFirem = [];
+
+  try {
+    priv.PrivateModel privateModel = getDataPriv(dir, 'weight_products.json');
+
+    if (privateModel.firmy != null) {
+      for (priv.Firmy firmy in privateModel.firmy!) {
+        String vyrobek = firmy.produkt!;
+
+        vyrobek = replacePlaceholders(vyrobek, firmy.kod!);
+
+        seznamFirem.add(FirmaData(
+          kod: firmy.kod!,
+          nazev: firmy.vyrobce!, // modifikovany vyrobek
+          holding: firmy.holding == 1
+              ? HoldingType.holding
+              : HoldingType.mimoHolding,
+          pozn: vyrobek,
+        ));
+      }
+    }
+  } catch (e) {
+    throw ('Chyba při načítání dat: $e');
+  }
+  return seznamFirem;
+}
+
+String replacePlaceholders(String vyrobek, String kod) {
+  vyrobek = vyrobek.replaceAll("{A}", "Albert: ");
+  vyrobek = vyrobek.replaceAll("{B}", "Billa: ");
+  vyrobek = vyrobek.replaceAll("{G}", "Globus: ");
+  vyrobek = vyrobek.replaceAll("{K}", "Kaufland: ");
+  vyrobek = vyrobek.replaceAll("{L}", "Lidl: ");
+  vyrobek = vyrobek.replaceAll("{M}", "Makro: ");
+  vyrobek = vyrobek.replaceAll("{N}", "Norma: ");
+  vyrobek = vyrobek.replaceAll("{P}", "Penny: ");
+  vyrobek = vyrobek.replaceAll("{T}", "Tesco: ");
+  vyrobek += " ${getPriceFromBarcode(kod)}";
+  return vyrobek;
+}
+
+String getPriceFromBarcode(String kod) {
+  if (kod.length < 12) {
+    return "";
+  }
+
+  try {
+    String sWeight = kod.substring(7, 12);
+
+    double iWeight = double.tryParse(sWeight) ?? 0.0;
+
+    // prilis mala hmotnost je v gramech, jinak kg
+    if (iWeight < 100) {
+      return ", ${iWeight.toStringAsFixed(0)}g";
+    } else {
+      return ", ${(iWeight / 1000).toStringAsFixed(3)}kg";
+    }
+  } catch (e) {
+    return "";
+  }
+}
