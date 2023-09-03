@@ -16,8 +16,7 @@ class ResultWidget extends StatelessWidget {
       builder: (context, result, child) {
         // PROBÍHALO SKENOVÁNÍ?
         // Pozn.: result může být -1 pokud se zruší scanning
-        bool scannedYet =
-            (result.isEmpty || result.contains("-1")) ? false : true;
+        bool scannedYet = (result.isEmpty || result.contains("-1")) ? false : true;
 
         Future<ResultData?> resultFuture;
         // pokud ano, ziska Result Data
@@ -35,8 +34,7 @@ class ResultWidget extends StatelessWidget {
               return const CircularProgressIndicator();
             } else {
               ResultData? vyslednaFirma = snapshot.data;
-              return resultWidgetDesign(
-                  scannedYet, result, vyslednaFirma, context);
+              return resultWidgetDesign(scannedYet, result, vyslednaFirma, context);
             }
           },
         );
@@ -44,8 +42,7 @@ class ResultWidget extends StatelessWidget {
     );
   }
 
-  resultWidgetDesign(bool scannedYet, String result, ResultData? vyslednaFirma,
-      BuildContext context) {
+  resultWidgetDesign(bool scannedYet, String result, ResultData? vyslednaFirma, BuildContext context) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
@@ -76,10 +73,6 @@ class ResultWidget extends StatelessWidget {
                   : vyslednaFirma.holding == HoldingType.putin
                       ? putinResult()
                       : badResult(),
-          TextButton(
-            onPressed: () => showReportDialog(context),
-            child: const Text("Nahlásit chybu"),
-          ),
           if (vyslednaFirma.zeme != null) ...[
             Text(
               "Země původu: ${vyslednaFirma.zeme}",
@@ -88,9 +81,12 @@ class ResultWidget extends StatelessWidget {
             ),
           ],
           if (vyslednaFirma.dodatek.isNotEmpty) ...[
-            Text("Poznámka: ${vyslednaFirma.dodatek}",
-                textAlign: TextAlign.center),
+            Text("Poznámka: ${vyslednaFirma.dodatek}", textAlign: TextAlign.center),
           ],
+          TextButton(
+            onPressed: () => showReportDialog(context),
+            child: const Text("Nahlásit chybu"),
+          ),
         ],
       ],
     );
