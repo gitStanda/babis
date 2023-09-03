@@ -43,6 +43,7 @@ dependencies:
   babstrap_settings_screen: ^0.1.6
   url_launcher: ^6.1.12
   internet_connection_checker: ^1.0.0+1
+  diacritic: ^0.1.4
 
   # ai_barcode_scanner: ^0.0.7 - i've made some changes to this one.
   

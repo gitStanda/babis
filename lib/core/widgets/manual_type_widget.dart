@@ -1,46 +1,41 @@
+import 'package:babisappka/core/widgets/tabs/name_tab.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-
-import '../notifiers.dart';
+import 'tabs/code_tab.dart';
 
 class ManualTypeWidget extends StatelessWidget {
-  ManualTypeWidget({super.key});
-  final TextEditingController _textEditingController = TextEditingController();
-
-  void _updateScanResult(BuildContext context) {
-    final String enteredBarcode = _textEditingController.text;
-
-    scanResult.value = enteredBarcode;
-  }
+  const ManualTypeWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        TextField(
-          keyboardType: TextInputType.number,
-          inputFormatters: [FilteringTextInputFormatter.digitsOnly, LengthLimitingTextInputFormatter(20)],
-          controller: _textEditingController,
-          decoration: InputDecoration(
-            hintText: 'Napiš čárový kód...',
-            prefixIcon: const Icon(CupertinoIcons.barcode),
-            enabledBorder: OutlineInputBorder(
-              borderSide: const BorderSide(),
-              borderRadius: BorderRadius.circular(10),
-            ),
-            focusedBorder: OutlineInputBorder(
-              borderSide: const BorderSide(color: Colors.white),
-              borderRadius: BorderRadius.circular(10),
+    return DefaultTabController(
+      length: 2,
+      child: Column(
+        children: [
+          const TabBar(
+            tabs: [
+              Tab(
+                icon: Icon(CupertinoIcons.barcode),
+                iconMargin: EdgeInsets.only(bottom: 5),
+                text: "KÓD",
+              ),
+              Tab(
+                icon: Icon(CupertinoIcons.pencil_outline),
+                iconMargin: EdgeInsets.only(bottom: 5),
+                text: "NÁZEV",
+              ),
+            ],
+          ),
+          Expanded(
+            child: TabBarView(
+              children: [
+                CodeTab(),
+                NameTab(),
+              ],
             ),
           ),
-        ),
-        const SizedBox(height: 16),
-        ElevatedButton(
-          onPressed: () => _updateScanResult(context),
-          child: const Text('Najít'),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

@@ -61,6 +61,31 @@ priv.PrivateModel getDataPriv(Directory dir, String fileName) {
   return model;
 }
 
+Future<List<FirmaData>> loadAgro() async {
+  final dir = await getApplicationDocumentsDirectory();
+  List<FirmaData> seznamFirem = [];
+  try {
+    EanModel agroModel = getDataEan(dir, 'ean13agro.json');
+
+    if (agroModel.firmy != null) {
+      for (Firmy firmy in agroModel.firmy!) {
+        seznamFirem.add(FirmaData(
+          kod: firmy.kod!,
+          nazev: firmy.nazev!,
+          holding: HoldingType.holding,
+          pozn: firmy.pozn,
+          struktura: firmy.struktura,
+          retezec: (firmy.retezec ?? 0) > 0,
+        ));
+      }
+    }
+  } catch (e) {
+    throw ('Error loading EAN data: $e');
+  }
+
+  return seznamFirem;
+}
+
 Future<List<FirmaData>> loadEans() async {
   final dir = await getApplicationDocumentsDirectory();
   List<FirmaData> seznamFirem = [];

@@ -33,6 +33,7 @@ Future<ResultData> getResultData(String barcode) async {
   // nenasla se zadna firma, vrati aspon zemi puvodu a pokud to neni CR, vrati "mimo holding"
   if (firmaData == null) {
     processCountry(barcode, result);
+    return result;
   } else {
     // pokud je to RETEZEC - albert, tesco, kaufland, atd...
     if (firmaData.retezec == true) {
@@ -191,7 +192,7 @@ ResultData processCountry(String barcode, ResultData result) {
     result.holding = HoldingType.nejasne;
   }
   // je z Ruska
-  if (zeme == "Rusko") {
+  else if (zeme == "Rusko") {
     result.nazev = "nezjištěná firma z Ruska";
     result.zeme = "Rusko";
     result.dodatek = "Tento produkt pochází z Ruska.";
