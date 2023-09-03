@@ -75,7 +75,7 @@ class _NameTabState extends State<NameTab> {
               leading: const Icon(Icons.search),
               title: TextField(
                 controller: controller,
-                decoration: const InputDecoration(hintText: 'Jméno výrobce', border: InputBorder.none),
+                decoration: const InputDecoration(hintText: 'Napiš jméno výrobce', border: InputBorder.none),
                 onChanged: onSearchTextChanged,
               ),
               trailing: IconButton(
