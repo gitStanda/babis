@@ -1,11 +1,11 @@
 import 'package:babisappka/components/show_report_dialog.dart';
 import 'package:babisappka/core/functions/download_data.dart';
 import 'package:babisappka/core/functions/data_version.dart';
+import 'package:babisappka/core/functions/show_download_toast.dart';
 import 'package:babisappka/core/models/data_version_model.dart';
 import 'package:babisappka/core/notifiers.dart';
 
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 
 class DataPage extends StatefulWidget {
   const DataPage({super.key});
@@ -84,8 +84,9 @@ class DataPageState extends State<DataPage> {
                         setState(() {
                           downloading = true;
                         });
-                        bool success = await downloadData();
-                        success ? showToast(true) : showToast(false);
+                        await downloadData().then((value) =>
+                            value ? showDownloadToast(true, context) : showDownloadToast(false, context));
+
                         setState(() {
                           downloading = false;
                         });
@@ -125,16 +126,6 @@ class DataPageState extends State<DataPage> {
           ),
         ),
       ),
-    );
-  }
-
-  void showToast(bool isSuccess) {
-    Fluttertoast.showToast(
-      msg: isSuccess ? "Úspěšně staženo" : "Nastala chyba při stahování",
-      toastLength: Toast.LENGTH_SHORT,
-      gravity: ToastGravity.BOTTOM,
-      backgroundColor: isSuccess ? Colors.green : Colors.red,
-      textColor: Colors.white,
     );
   }
 }

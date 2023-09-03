@@ -30,7 +30,7 @@ class ManualTypeWidget extends StatelessWidget {
               borderRadius: BorderRadius.circular(10),
             ),
             focusedBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: Colors.white),
+              borderSide: const BorderSide(color: Colors.white),
               borderRadius: BorderRadius.circular(10),
             ),
           ),

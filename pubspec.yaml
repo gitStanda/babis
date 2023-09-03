@@ -39,13 +39,10 @@ dependencies:
   mobile_scanner: ^3.4.1
   dio: ^5.3.2
   path_provider: ^2.1.0
-  fluttertoast: ^8.2.2
   shared_preferences: ^2.2.0
   babstrap_settings_screen: ^0.1.6
   url_launcher: ^6.1.12
   internet_connection_checker: ^1.0.0+1
-  # test
-  google_fonts: ^5.1.0
 
   # ai_barcode_scanner: ^0.0.7 - i've made some changes to this one.
   
