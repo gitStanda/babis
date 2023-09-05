@@ -64,6 +64,7 @@ class DataPageState extends State<DataPage> {
               ValueListenableBuilder(
                 valueListenable: downloadProgress,
                 builder: (context, progress, child) {
+                  // TODO: fix linear progress indicator
                   return LinearProgressIndicator(
                     minHeight: 16,
                     color: Theme.of(context).colorScheme.onPrimary,

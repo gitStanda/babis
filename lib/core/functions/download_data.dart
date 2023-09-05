@@ -41,26 +41,32 @@ Future<bool> downloadData() async {
     'weight_products.json',
   ];
 
-  for (int index = 0; index < urls.length; index++) {
-    try {
+  try {
+    List<Future<Response>> downloadFutures = [];
+
+    for (int index = 0; index < urls.length; index++) {
       String url = urls[index];
       String filePath = filePaths[index];
-      int total = urls.length;
 
-      var response = await dio.download(
+      downloadFutures.add(dio.download(
         url,
         "$dir/$filePath",
-      );
+      ));
+    }
 
-      updateDownloadProgress(index, total);
+    List<Response> responses = await Future.wait(downloadFutures);
 
-      if (response.statusCode != 200) {
+    int total = urls.length;
+    for (int index = 0; index < total; index++) {
+      if (responses[index].statusCode != 200) {
         return false;
       }
-    } catch (error) {
-      return false;
+      updateDownloadProgress(index, total);
     }
+  } catch (error) {
+    return false;
   }
+
   downloadProgress.value = 0;
   return true;
 }
