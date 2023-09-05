@@ -22,7 +22,6 @@ Comments, strings & data stuff (json, models, parsed data, result class, ...) ar
 - nefunguje offline pri prvnim spusteni - fixnout - stahnout nejaky default asset jsons
 - Logo aplikace 
 - Zmenit Babis obrazky
-- Pridat vyhledavani pomoci nazvu
 - Pridat vyhledavani pomoci oválné značky výrobce
 - Nastaveni - zobrazeni reklam?, 
 
