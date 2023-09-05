@@ -57,7 +57,7 @@ class DataPageState extends State<DataPage> {
               // ),
               const SizedBox(height: 16),
               const Text(
-                'Ke správné identifikaci výrobců potřebuje aplikace občas aktualizovat svoje vnitřní data.\nAby to mohla udělat, musí se připojit k internetu. \n\nZapněte prosím mobilní data nebo WiFi a klikněte na tlačítko. Vše by se mělo vejít do objemu 0,5 MB.',
+                'Ke správné identifikaci výrobců potřebuje aplikace občas aktualizovat svoje vnitřní data.\nAby to mohla udělat, musí se připojit k internetu. \n\nZapněte prosím mobilní data nebo WiFi a klikněte na tlačítko. Vše by se mělo vejít do objemu 50 KB.',
                 style: TextStyle(fontWeight: FontWeight.w500),
               ),
               const SizedBox(height: 24),
