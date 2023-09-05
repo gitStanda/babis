@@ -1,4 +1,3 @@
-import 'package:babisappka/core/notifiers.dart';
 import 'package:dio/dio.dart';
 import 'package:path_provider/path_provider.dart';
 
@@ -61,17 +60,10 @@ Future<bool> downloadData() async {
       if (responses[index].statusCode != 200) {
         return false;
       }
-      updateDownloadProgress(index, total);
     }
   } catch (error) {
     return false;
   }
 
-  downloadProgress.value = 0;
   return true;
-}
-
-void updateDownloadProgress(int index, int total) {
-  double progress = index / total;
-  downloadProgress.value = progress;
 }

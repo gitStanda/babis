@@ -61,20 +61,9 @@ class DataPageState extends State<DataPage> {
                 style: TextStyle(fontWeight: FontWeight.w500),
               ),
               const SizedBox(height: 24),
-              ValueListenableBuilder(
-                valueListenable: downloadProgress,
-                builder: (context, progress, child) {
-                  // TODO: fix linear progress indicator
-                  return LinearProgressIndicator(
-                    minHeight: 16,
-                    color: Theme.of(context).colorScheme.onPrimary,
-                    backgroundColor: Theme.of(context).colorScheme.primary,
-                    value: progress,
-                    borderRadius:
-                        const BorderRadius.horizontal(left: Radius.circular(10), right: Radius.circular(10)),
-                  );
-                },
-              ),
+
+              downloading ? const CircularProgressIndicator() : const SizedBox.shrink(),
+
               const SizedBox(
                 height: 32,
               ),
