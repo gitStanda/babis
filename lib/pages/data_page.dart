@@ -3,7 +3,6 @@ import 'package:babisappka/core/functions/download_data.dart';
 import 'package:babisappka/core/functions/data_version.dart';
 import 'package:babisappka/core/functions/show_download_toast.dart';
 import 'package:babisappka/core/models/data_version_model.dart';
-import 'package:babisappka/core/notifiers.dart';
 
 import 'package:flutter/material.dart';
 
