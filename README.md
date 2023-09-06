@@ -6,8 +6,8 @@ Works even offline, light/dark mode.
 Heavily inspired by https://github.com/babisovka510/Babisovka/  
 Comments, strings & data stuff (json, models, parsed data, result class, ...) are in Czech. 
 
-![image](https://github.com/gitStanda/babis/assets/136804505/83415efd-eeeb-47b9-889f-a11566a8dada)
-![image](https://github.com/gitStanda/babis/assets/136804505/468baf8e-5a70-4de0-aa11-b0bef8dd7f39)
+
+https://github.com/gitStanda/babis/assets/136804505/8752c568-4799-4397-ad0f-8b0b7feeaee6
 
 # Problems I am aware of
 
