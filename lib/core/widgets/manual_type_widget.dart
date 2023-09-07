@@ -30,7 +30,7 @@ class ManualTypeWidget extends StatelessWidget {
             child: TabBarView(
               children: [
                 CodeTab(),
-                NameTab(),
+                const NameTab(),
               ],
             ),
           ),

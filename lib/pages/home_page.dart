@@ -24,7 +24,7 @@ class _HomePageState extends State<HomePage> {
       if (selectedOption.value == 'Scan') {
         return const CameraWidget();
       } else if (selectedOption.value == 'Manual') {
-        return ManualTypeWidget();
+        return const ManualTypeWidget();
       } else {
         return const ResultWidget();
       }
