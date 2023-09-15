@@ -34,7 +34,8 @@ class DataPageState extends State<DataPage> {
     });
   }
 
-  TextStyle versionStyle = const TextStyle(fontSize: 16, fontWeight: FontWeight.bold);
+  TextStyle versionStyle =
+      const TextStyle(fontSize: 16, fontWeight: FontWeight.bold);
 
   @override
   Widget build(BuildContext context) {
@@ -50,21 +51,17 @@ class DataPageState extends State<DataPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              // Divider(
-              //   thickness: 2,
-              //   color: Colors.black.withOpacity(0.33),
-              // ),
               const SizedBox(height: 16),
               const Text(
                 'Ke správné identifikaci výrobců potřebuje aplikace občas aktualizovat svoje vnitřní data.\nAby to mohla udělat, musí se připojit k internetu. \n\nZapněte prosím mobilní data nebo WiFi a klikněte na tlačítko. Vše by se mělo vejít do objemu 50 KB.',
                 style: TextStyle(fontWeight: FontWeight.w500),
               ),
-              const SizedBox(height: 24),
-
-              downloading ? const CircularProgressIndicator() : const SizedBox.shrink(),
-
+              const SizedBox(height: 16),
+              downloading
+                  ? const CircularProgressIndicator()
+                  : const SizedBox.shrink(),
               const SizedBox(
-                height: 32,
+                height: 16,
               ),
               OutlinedButton(
                 onPressed: downloading
@@ -73,8 +70,15 @@ class DataPageState extends State<DataPage> {
                         setState(() {
                           downloading = true;
                         });
-                        await downloadData().then((value) =>
-                            value ? showDownloadToast(true, context) : showDownloadToast(false, context));
+                        await downloadData().then((value) => value
+                            ? showDownloadToast(true, context)
+                            : showDownloadToast(false, context));
+
+                        loadLocalDataVersion().then((loadedLocalDataVersion) {
+                          setState(() {
+                            localDataVersion = loadedLocalDataVersion;
+                          });
+                        });
 
                         setState(() {
                           downloading = false;
@@ -82,17 +86,21 @@ class DataPageState extends State<DataPage> {
                       },
                 child: const Text('Aktualizovat databázi'),
               ),
-
               const SizedBox(
                 height: 32,
               ),
               localDataVersion != null
-                  ? Text('Verze databáze v aplikaci: ${localDataVersion!.datum!}', style: versionStyle)
-                  : Text('Verze databáze v aplikaci není k dispozici', style: versionStyle),
+                  ? Text(
+                      'Verze databáze v aplikaci: ${localDataVersion!.datum!}',
+                      style: versionStyle)
+                  : Text('Verze databáze v aplikaci není k dispozici',
+                      style: versionStyle),
               const SizedBox(height: 16),
               newDataVersion != null
-                  ? Text('Verze databáze ke stažení: ${newDataVersion!.datum!}', style: versionStyle)
-                  : Text('Verze databáze ke stažení není k dispozici', style: versionStyle),
+                  ? Text('Verze databáze ke stažení: ${newDataVersion!.datum!}',
+                      style: versionStyle)
+                  : Text('Verze databáze ke stažení není k dispozici',
+                      style: versionStyle),
               Expanded(
                 child: Center(
                   child: Column(
