@@ -23,8 +23,6 @@ https://github.com/gitStanda/babis/assets/136804505/8752c568-4799-4397-ad0f-8b0b
 - Logo aplikace 
 - Zmenit Babis obrazky
 - Pridat vyhledavani pomoci oválné značky výrobce
-- Nastaveni - zobrazeni reklam?, 
+- Nastaveni
 
-## monetization (trying to get some of the $100 a year for AppStore back)
-reklamy?
-Donate?
+
